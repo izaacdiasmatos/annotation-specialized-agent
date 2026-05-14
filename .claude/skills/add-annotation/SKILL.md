@@ -1,19 +1,21 @@
 ---
 name: add-annotation
-description: Instruções para adicionar conteúdo organizado ao arquivo de anotações do curso Claude Code.
+description: Skill para adicionar anotações organizadas e formatadas no arquivo `Anotações` de um curso ou estudo específico, seguindo regras de estrutura e estilo para manter a consistência.
 user-invocable: true
 ---
 
 # Composição da Criação de Anotações
 
-Quando o usuário solicitar a adição de uma anotação, siga as regras e o formato descritos abaixo para garantir que o conteúdo seja organizado de maneira clara e consistente no arquivo `Anotações`.
+Quando o usuário solicitar a adição de uma anotação, siga as regras e o formato descritos abaixo para garantir que o conteúdo seja organizado de maneira clara e consistente no arquivo `Anotações` dentro da pasta do curso ou estudo correspondente.
 
 ## Fluxo de Criação de Anotações
 
-1. Identifique o tipo de anotação a ser adicionada baseado na descrição fornecida. Use uma categoria existente ou crie uma nova seção se necessário.
-2. Sempre escreva diretamente no arquivo `Anotações` seguindo a estrutura e o estilo já estabelecidos.
+1. Identifique qual o curso ou estudo sendo abordado e localize o arquivo `Anotações` correspondente.
+2. Caso seja um contexto não existe, crie uma nova pasta no formato `<nome-do-curso-ou-estudo><Annotations>` e dentro dela um arquivo `Anotações` para armazenar as anotações futuras.
+3. Identifique o tipo de anotação a ser adicionada baseado na descrição fornecida. Use uma categoria existente ou crie uma nova seção se necessário.
+4. Sempre escreva diretamente no arquivo `Anotações` seguindo a estrutura e o estilo já estabelecidos.
 Regras para adicionar uma anotação:
-3. Siga a organição estrutural do arquivo `Anotações`:
+5. Siga a organição estrutural do arquivo `Anotações`:
    - Use os cabeçalhos de nível `##` para seções principais e `###` para subseções.
    - Mantenha a formatação consistente com o estilo do arquivo existente.
 
