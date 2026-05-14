@@ -1,0 +1,77 @@
+﻿# <strong>Curso: Claude Code</strong>
+
+## Conteúdos
+
+### <span style="color: #86EFAC;">Configurações</span>
+### Controle de Permissões
+#### Arquivo settings.local.json
+- Definição: Usado para controlar permissões automáticamente, seja liberando acessos permanentes ou negando-os.
+- Aplicação: Caminho do arquivo = .claude/settings.local.json
+![Coding Assistant](./images/claude-local-settings.png)
+
+### <span style="color: #7DD3FC;">Conceitos importantes</span>
+#### Plan mode — uso em tarefas extensas
+- Definição: utilizado para tarefas extensas e que precisam de ampla informação ou de vários passos.
+- Nota prática: ative com Shift+Tab 2x ou Shift+Tab.
+---
+#### Thinking modes — modos de raciocínio
+- Definição: permite que o Claude raciocine sobre problemas mais desafiadores.
+- Níveis: Think | Think more | Think a lot | Think longer | Ultrathink
+---
+#### Skill — contexto de conhecimento e comportamento
+- Conceito: Skill
+- Definição: contexto de conhecimento e comportamento que utiliza a descrição de seu cabeçalho para ser identificado pelo modelo e utilizado quando aplicável. Também pode ser utilizado por Agentes e Subagentes.
+- Aplicação: identificado automaticamente pelo modelo via cabeçalho descritivo, usado em contextos relevantes.
+- Nota prática: skills são acionadas pelo contexto e podem ser invocadas por agentes.
+- Caminho: .claude/skills/minhaskill/SKILL.md
+---
+#### Comandos — instruções para execuções específicas
+- Conceito: Comandos
+- Definição: instruções criadas para execuções específicas que devem ser invocadas pelo usuário "/meucomando". Comandos também podem receber argumentos, por exemplo: "Escreva um teste para: $ARGUMENTS". Quando for informado um caminho ou texto, isso dará mais ideia para o modelo onde deve olhar.
+- Aplicação: use para tarefas que precisam ser explicitamente chamadas com argumentos opcionais.
+- Nota prática: invoque com "/comando" e passe argumentos para contextualizar.
+- Caminho: .claude/commands/meucomando.md
+---
+#### Comandos vs Skills — diferenças conceituais e de usabilidade
+- Conceito: Comandos vs Skills
+- Definição: Comandos são tarefas específicas que devem ser chamadas no formato "/meucomando" enquanto Skills são reconhecidas automaticamente pelo contexto do prompt, mesmo que também possa ser invocada como um comando "/minhaskill".
+- Aplicação: use comandos para ações diretas e explícitas, skills para comportamentos contextuais e automáticos. Exemplo: Criar um script para rodar comandos de powershell para fazer validações ou instalações de pacotes
+- Nota prática: skills oferecem maior flexibilidade por serem ativadas pelo contexto.
+---
+#### MCP (Model Context Protocol) — instalação de servidores para expandir ferramentas
+- Conceito: MCP (Model Context Protocol)
+- Definição: protocolo que permite adicionar servidores MCP para expandir as ferramentas e capacidades disponíveis no Claude Code.
+- Aplicação: utilize para integrar novas funcionalidades e ferramentas que não estão disponíveis por padrão.
+- Nota prática: a instalação é feita no terminal (não no Claude Code propriamente dito). Use o comando: `claude mcp add <nome> <pacote-npx>`.
+- Exemplo: Para instalar o Playwright, execute no terminal: `claude mcp add playwright npx @playwright/mcp@latest`
+
+### <span style="color: #C4B5FD;">Estrutura do Claude Code</span>
+#### Code Assistant — visão geral do assistente de código
+- Definição: assistentes de código que ajudam a revisar, corrigir, completar e explicar trechos de programação.
+- Aplicação: usados para acelerar tarefas de desenvolvimento e reduzir erros.
+
+![Coding Assistant](./images/coding-assistant-diagram.png)
+
+### <span style="color: #FCA5A5;">Comandos</span>
+#### Comandos de Contexto
+##### /compact — limpar histórico mantendo um sumário útil
+- Definição: comando que limpa o histórico da conversa, mas mantém um sumário do contexto relevante.
+- Aplicação: use depois de aprender algo importante na tarefa atual quando você quer reduzir o peso do histórico, mas ainda preservar o contexto para a próxima etapa.
+- Nota prática: útil para manter foco e continuidade sem carregar todo o histórico das conversas anteriores.
+
+##### /Clear — discarta todo o contexto e começa do zero
+- Definição: comando que discarta todo o contexto e começa do zero.
+- Aplicação: use quando quiser reiniciar completamente a conversa sem preservar nenhum histórico.
+- Nota prática: útil para começar uma nova sessão limpa.
+
+### <span style="color: #FCD34D;">Facilitadores e Dicas</span>
+#### Retroceder na Conversa — voltar ao histórico e corrigir o contexto
+- Definição: recurso de mostrar todas as mensagens enviadas para revisar e alterar o prompt anterior.
+- Aplicação: use quando precisar evitar erros conhecidos, limpar o contexto ou ajustar instruções antes de continuar.
+- Nota prática: pressione "Escape" duas vezes (Escape2x) para ativar a revisão rápida da conversa.
+
+#### Adicionar memória — pausar e registrar notas dentro do fluxo
+- Definição: ação de pausar o processamento com "Esc" e inserir uma memória usando "#" para ajudar o Claude a lembrar de informações importantes.
+- Aplicação: use durante sessões de edição ou exploração para registrar contextos, fatos ou caminhos que o assistente deve preservar.
+- Nota prática: quando precisar interromper o fluxo e salvar um lembrete, pressione "Esc" e digite "#" seguido da informação relevante.
+
