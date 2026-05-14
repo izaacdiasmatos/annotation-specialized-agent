@@ -1,7 +1,7 @@
 ---
 name: add-image-reference
 description: Skill para adicionar uma imagem de referência ao arquivo de anotações do curso ou estudo correspondente, seguindo as regras de formatação e organização estabelecidas.
-user-invocable: true
+user-invocable: false
 ---
 
 Quando uma imagem deve ser adicionada como referência ao arquivo `Anotações`, aplique estas regras:
