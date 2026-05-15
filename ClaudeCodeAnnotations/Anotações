@@ -1,50 +1,49 @@
 ﻿# <strong>Curso: Claude Code</strong>
 
 ## Conteúdos
-
 ### <span style="color: #86EFAC;">Configurações</span>
 ### Controle de Permissões
 #### Arquivo settings.local.json
 - Definição: Usado para controlar permissões automáticamente, seja liberando acessos permanentes ou negando-os.
 - Aplicação: Caminho do arquivo = .claude/settings.local.json
 ![Coding Assistant](./images/claude-local-settings.png)
-
+---
 ### <span style="color: #7DD3FC;">Conceitos importantes</span>
 #### Plan mode — uso em tarefas extensas
 - Definição: utilizado para tarefas extensas e que precisam de ampla informação ou de vários passos.
 - Nota prática: ative com Shift+Tab 2x ou Shift+Tab.
----
+
 #### Thinking modes — modos de raciocínio
 - Definição: permite que o Claude raciocine sobre problemas mais desafiadores.
 - Níveis: Think | Think more | Think a lot | Think longer | Ultrathink
----
+
 #### Skill — contexto de conhecimento e comportamento
 - Conceito: Skill
 - Definição: contexto de conhecimento e comportamento que utiliza a descrição de seu cabeçalho para ser identificado pelo modelo e utilizado quando aplicável. Também pode ser utilizado por Agentes e Subagentes.
 - Aplicação: identificado automaticamente pelo modelo via cabeçalho descritivo, usado em contextos relevantes.
 - Nota prática: skills são acionadas pelo contexto e podem ser invocadas por agentes.
 - Caminho: .claude/skills/minhaskill/SKILL.md
----
+
 #### Comandos — instruções para execuções específicas
 - Conceito: Comandos
 - Definição: instruções criadas para execuções específicas que devem ser invocadas pelo usuário "/meucomando". Comandos também podem receber argumentos, por exemplo: "Escreva um teste para: $ARGUMENTS". Quando for informado um caminho ou texto, isso dará mais ideia para o modelo onde deve olhar.
 - Aplicação: use para tarefas que precisam ser explicitamente chamadas com argumentos opcionais.
 - Nota prática: invoque com "/comando" e passe argumentos para contextualizar.
 - Caminho: .claude/commands/meucomando.md
----
+
 #### Comandos vs Skills — diferenças conceituais e de usabilidade
 - Conceito: Comandos vs Skills
 - Definição: Comandos são tarefas específicas que devem ser chamadas no formato "/meucomando" enquanto Skills são reconhecidas automaticamente pelo contexto do prompt, mesmo que também possa ser invocada como um comando "/minhaskill".
 - Aplicação: use comandos para ações diretas e explícitas, skills para comportamentos contextuais e automáticos. Exemplo: Criar um script para rodar comandos de powershell para fazer validações ou instalações de pacotes
 - Nota prática: skills oferecem maior flexibilidade por serem ativadas pelo contexto.
----
+
 #### MCP (Model Context Protocol) — instalação de servidores para expandir ferramentas
 - Conceito: MCP (Model Context Protocol)
 - Definição: protocolo que permite adicionar servidores MCP para expandir as ferramentas e capacidades disponíveis no Claude Code.
 - Aplicação: utilize para integrar novas funcionalidades e ferramentas que não estão disponíveis por padrão.
 - Nota prática: a instalação é feita no terminal (não no Claude Code propriamente dito). Use o comando: `claude mcp add <nome> <pacote-npx>`.
 - Exemplo: Para instalar o Playwright, execute no terminal: `claude mcp add playwright npx @playwright/mcp@latest`
-
+---
 ### <span style="color: #C4B5FD;">Estrutura do Claude Code</span>
 #### Code Assistant — visão geral do assistente de código
 - Definição: assistentes de código que ajudam a revisar, corrigir, completar e explicar trechos de programação.
@@ -52,6 +51,23 @@
 
 ![Coding Assistant](./images/coding-assistant-diagram.png)
 
+#### Hooks - comandos baseado em eventos
+- Definição: Comandos que podem ser registrados para rodarem baseados em eventos, são executados em momentos específicos durante a execução de ferramentas do Claude.
+- Aplicação: Alguns dos hooks existem são PreToolUse e PostToolUse, comando executado antes da ferramente e depois da ferramente, como na imagem a seguir:
+![Hooks work flow](./images/hooks-work-flow.png)
+- Como usar: Os hooks são criados e configurados no arquivo settings do Claude, seguindo a mesma lógica hierarquica, porem para os hooks a execução é mesclada e não discartada para os níveis menores:
+![Hooks work flow](./images/hooks-configuration.png)
+- A Preferencia e formato de execução dos hooks:
+
+| # | Escopo | Arquivo / Local | Prioridade | Hooks | Descrição e uso recomendado |
+|---|--------|-----------------|:----------:|:-----:|------------------------------|
+| 1 | **Managed** | `managed-settings.json` (diretório de instalação — definido pela organização) | Mais alta | Mesclado | Políticas corporativas impostas pelo administrador. Não pode ser sobrescrito por nenhum outro escopo. Usado em ambientes enterprise para bloquear comandos perigosos, forçar sandboxing e distribuir hooks aprovados. |
+| 2 | **CLI flags** | Sem arquivo — passado direto no terminal (`--flag`) | Muito alta | Não aplica | Flags temporárias para uma única sessão. Ex: `--permission-mode auto`, `--model claude-opus-4-6`. Não persiste entre sessões e não configura hooks. |
+| 3 | **Local** | `.claude/settings.local.json` (raiz do projeto — **não versionado**, no `.gitignore`) | Alta | Mesclado | Overrides pessoais para um projeto específico, na sua máquina. Nunca commitado. Ideal para testar hooks antes de propor ao time ou para preferências pessoais que não devem afetar outros devs. |
+| 4 | **Project** | `.claude/settings.json` (raiz do projeto — **versionado no git**) | Média | Mesclado | Padrões compartilhados com todo o time. Commitado no repositório. Define permissões de equipe, hooks de qualidade de código (lint, testes) e restrições de ferramentas que valem para todos os devs do projeto. |
+| 5 | **User / Global** | `~/.claude/settings.json` (pasta home do usuário — aplica a todos os projetos) | Mais baixa | Mesclado | Preferências pessoais que se aplicam a todos os projetos da máquina. Ponto de partida da hierarquia. Ideal para hooks globais (ex: notificações) e configurações de modelo padrão. |
+
+---
 ### <span style="color: #FCA5A5;">Comandos</span>
 #### Comandos de Contexto
 ##### /compact — limpar histórico mantendo um sumário útil
@@ -63,7 +79,7 @@
 - Definição: comando que discarta todo o contexto e começa do zero.
 - Aplicação: use quando quiser reiniciar completamente a conversa sem preservar nenhum histórico.
 - Nota prática: útil para começar uma nova sessão limpa.
-
+---
 ### <span style="color: #FCD34D;">Facilitadores e Dicas</span>
 #### Retroceder na Conversa — voltar ao histórico e corrigir o contexto
 - Definição: recurso de mostrar todas as mensagens enviadas para revisar e alterar o prompt anterior.
