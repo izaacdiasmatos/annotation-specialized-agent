@@ -6,7 +6,22 @@
 #### Arquivo settings.local.json
 - Definição: Usado para controlar permissões automáticamente, seja liberando acessos permanentes ou negando-os.
 - Aplicação: Caminho do arquivo = .claude/settings.local.json
-![Coding Assistant](./images/claude-local-settings.png)
+![Permissões das Settings](./images/claude-local-settings.png)
+
+### Anthropic Model API
+- Definição: API do Claude Code para realizar requests aos Modelos disponibilizados pela Anthropic(Opus, Sonnet, Haiku).
+-![Anthropic API Setup](./images/how-to-use-anthropic-api.png)
+-![Anthropic API](./images/anthropic-api.png)
+- Aplicação: A propriedade da messagem deve conter o prompt que será processado pelo modelo para gerar a messagem esperada
+- ![Calling Anthropic API](./images/call-anthropic-api.png)
+- ![Response Anthropic API](./images/response-anthropic-api.png)
+- Existem outros parâmetros possíveis:
+- Prompt de Sistema: Instruções extras para o modelo
+- ![System Prompt Anthropic API](./images/system-prompt-anthropic-api.png)
+- Temperature: O quão mais preciso(0.0) ou criativo(1.0) o modelo será [Temperature = (0.0-1.0)]
+- ![Temperature Anthropic API](./images/temperature-anthropic-api.png)
+- Stream: Formas de retornar para nossa UI(usuário) pedaços que estão sendo gerados pela IA, para evitar longos tempos de espera pela resposta. A solução a seguir filtra diretamente as mensagens que queros utilizando SDK do claude e pode ser enviado para onde desejarmos
+- ![Stream Anthropic API](./images/stream-good-approach-anthropic-api.png)
 ---
 ### <span style="color: #7DD3FC;">Conceitos importantes</span>
 #### Plan mode — uso em tarefas extensas
